@@ -1,0 +1,37 @@
+.container-fluid {
+    width: 100%;
+    /* Full width */
+    height: 100vh;
+    /* Full height */
+    /* overflow: auto; */
+    /* Add a scrollbar if the content overflows */
+    padding-top: 75px;
+    text-align: left;
+    min-height: 100vh;
+}
+
+.container-fluid p {
+    color: white;
+    font-size: 20px;
+}
+
+.container-fluid ul {
+    color: white;
+    font-size: 20px;
+}
+
+.bg-img {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('C:/Users/zyachin/Desktop/Repos/WTI/src/assets/sea.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.sticky-top {
+    color: cadetblue;
+}

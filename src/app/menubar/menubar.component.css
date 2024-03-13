@@ -1,0 +1,45 @@
+.navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+.nav-link {
+    /* border-bottom: 2px solid white; */
+    color: white;
+}
+
+.nav-link active
+{
+    color: white
+} 
+
+.nav-item {
+    color: white
+}
+
+.nav-link:hover {
+    color: cyan;
+    /* Change this t render the colour of the nav link cell when hovering */
+    /* border-bottom-color: currentColor */
+    /* border-bottom-color: 2px solidcadetblue; */
+    border-bottom: 2px solid cadetblue;
+}
+
+.nav-link-logo img {
+    max-height: 40px;
+    /* Adjust this value as needed */
+    width: auto;
+}
+
+.bg-body-tertiary {
+    background-color: black!important;
+    padding: 0;
+}
+
+.nav-link.dropdown-toggle {
+    color: #fff; /* Sets the text color to white */
+}
+
+

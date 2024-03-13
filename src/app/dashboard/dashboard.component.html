@@ -1,0 +1,108 @@
+<div class="container-fluid mt-1 bg-img">
+    <h1 class="sticky-top">Rankings</h1>
+    <br>
+    <br>
+    <p>Our global port rankings, a comprehensive benchmarking system that evaluates container ports based on efficiency,
+        smartness, greenness, and
+        resilience. Stay informed on which ports are leading the maritime industry in operational excellence and
+        sustainable practices: </p>
+    <br>
+    <br>
+
+
+    <div class="dropdown">
+        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Stakeholders
+        </a>
+
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="clearStakeholders()">All</a></li>
+            <li><a class="dropdown-item" (click)="setShipliner()">Shipliner</a></li>
+            <li><a class="dropdown-item" (click)="setRegulator()">Regulator</a></li>
+            <li><a class="dropdown-item" (click)="setLogisticsPartners()">Logistics Partners</a></li>
+            <li><a class="dropdown-item" (click)="setPortOperations()">Port Operations</a></li>
+        </ul>
+    </div>
+    <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Indicators
+        </a>
+
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="clearIndicators()">All</a></li>
+            <li><a class="dropdown-item" (click)="setEfficiency()">Efficiency</a></li>
+            <li><a class="dropdown-item" (click)="setSmartness()">Smartness</a></li>
+            <li><a class="dropdown-item" (click)="setGreenness()">Greenness</a></li>
+            <li><a class="dropdown-item" (click)="setResilience()">Resilience</a></li>
+        </ul>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <app-efficiency-modal-content></app-efficiency-modal-content>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ag-grid-angular style="width: 100%; height: 400px;" class="ag-theme-quartz-dark" [rowData]="rowData"
+        [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowSelection]="'multiple'"
+        [enableCharts]="enableCharts" [enableRangeSelection]="true" [autoGroupColumnDef]="autoGroupColumnDef"
+        [enableFillHandle]="true" [rowHeight]="75" (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+</div>
+
+
+
+<!-- <ag-grid-angular
+	#bpPlanTable
+	Style="width: 100%; height: 400px;"
+	[class]="themeClass"
+	[animateRows]="true"
+	[rowData]="bp_rowData"
+	[columnDefs]="bp_colDefs"
+	[defaultColDef]="defaultColDef"
+	[enableRangeSelection]="true"
+	[enableFillHandle]="true"                                                                                        
+	(gridReady)="onGridReady($event, bpPlanTable)"
+	(rowSelected)="onRowSelected($event, bpPlanTable)"
+	(rangeSelectionChanged)="onRangeSelectionChanged($event, bpPlanTable)"
+	(firstDataRendered)="onFirstDataRendered($event, bpPlanTable)"
+	(cellValueChanged)="onCellValueChanged($event, bpPlanTable)"
+>
+</ag-grid-angular> -->
+
+
+
+<!-- <mat-slide-toggle>Toggle me!</mat-slide-toggle>
+
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="bold">Bold</mat-button-toggle>
+    <mat-button-toggle value="italic">Italic</mat-button-toggle>
+    <mat-button-toggle value="underline">Underline</mat-button-toggle>
+</mat-button-toggle-group> -->
+
+
+
+
+
+<!-- The AG Grid component
+<ag-grid-angular [rowData]="rowData" [columnDefs]="colDefs">
+</ag-grid-angular> -->

@@ -1,0 +1,29 @@
+.container-fluid {
+    padding-top: 75px;
+    width: 100%;
+    /* Full width */
+    height: 100vh;
+    
+}
+
+.bg-img {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('C:/Users/zyachin/Desktop/Repos/WTI/src/assets/sea.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container-fluid p {
+    color: white;
+    font-size: 20px;
+}
+
+.container-fluid ul {
+    color: white;
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 48px;
+    color: cadetblue;
+    font-weight: bold;
+}
