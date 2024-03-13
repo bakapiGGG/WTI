@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, inject, Input, Renderer2} from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // HTTP Client
-import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
+// import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
 import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid Column Definition
 import * as Papa from 'papaparse'; // CSV Parser
 import { GridReadyEvent, GridApi, ColumnApi } from 'ag-grid-community';
 import { GridOptions } from 'ag-grid-community';
 import { MetricSparklineComponent } from '../metric-sparkline/metric-sparkline.component';
 import { ViewChild, ElementRef } from '@angular/core';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 interface DataRow {
   ID: string;
@@ -41,9 +44,11 @@ export class DashboardComponent {
     }
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private modalService: NgbModal, private renderer: Renderer2) {
     this.fetchCSV()
   }
+
+  
 
   public labelFormatter(params: any) {
     // return params.value.toFixed(2) + "\nTest";
@@ -165,6 +170,31 @@ export class DashboardComponent {
     // this.gridColumnApi.autoSizeColumn('yourColumnName');
   }
 
+  modalTitle = 'Default Title';
+
+  openModal(id: string) {
+
+    console.log('id is ', id);
+
+    switch (id) {
+      case 'resilienceModal':
+        this.modalTitle = 'Resilience Ranking';
+        break;
+      case 'efficiencyModal':
+        this.modalTitle = 'Efficiency Ranking';
+        break;
+      case 'smartnessModal':
+        this.modalTitle = 'Smartness Ranking';
+        break;
+      case 'greennessModal':
+        this.modalTitle = 'Greenness Ranking';
+        break;
+      // add more cases as needed
+    }
+
+    // code to open the modal
+  }
+
 
   setShipliner() {
     this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Shipliner'] } })
@@ -200,25 +230,15 @@ export class DashboardComponent {
   }
 
   setEfficiency() {
-    this.efficiencyModal.nativeElement.show();
+    this.modalService.open(this.efficiencyModal, { size: 'lg' });
 
   }
 
-  // setEfficiency() {
-  //   // Get the column definition for the 'Score Chart' column
-  //   const columnDef = this.gridApi.getColumnDef('sparkline');
+  open() {
+    const modalRef = this.modalService.open(this.efficiencyModal);
+    modalRef.componentInstance.name = 'World';
 
-  //   // Update the valueGetter function in the column definition
-  //   columnDef.valueGetter = (params: any) => {
-  //     const values = [
-  //       params.getValue('Efficiency').value
-  //     ];
-  //     return values;
-  //   };
-
-  //   // Refresh the cells in the 'Score Chart' column
-  //   this.gridApi.refreshCells({ columns: ['sparkline'] });
-  // }
+  }
 
   // setEfficiency() {
 
@@ -321,14 +341,6 @@ export class DashboardComponent {
     // Refresh the cells in the 'Score Chart' column
     this.gridApi.refreshCells({ columns: ['sparkline'] });
   }
-
-
-
-
-
-
-
-
 
 
 

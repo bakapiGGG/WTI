@@ -21,6 +21,10 @@ import { HttpClientModule } from '@angular/common/http';
 import 'ag-grid-enterprise';
 import { MetricSparklineComponent } from './metric-sparkline/metric-sparkline.component';
 import { EfficiencyModalContentComponent } from './efficiency-modal-content/efficiency-modal-content.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SmartnessModalContentComponent } from './smartness-modal-content/smartness-modal-content.component';
+import { GreennessModalContentComponent } from './greenness-modal-content/greenness-modal-content.component';
+import { ResilienceModalContentComponent } from './resilience-modal-content/resilience-modal-content.component';
 
 
 
@@ -41,6 +45,9 @@ import { EfficiencyModalContentComponent } from './efficiency-modal-content/effi
     LoginAdminComponent,
     MetricSparklineComponent,
     EfficiencyModalContentComponent,
+    SmartnessModalContentComponent,
+    GreennessModalContentComponent,
+    ResilienceModalContentComponent,
   ],
   
   imports: [
@@ -50,7 +57,8 @@ import { EfficiencyModalContentComponent } from './efficiency-modal-content/effi
     MatSlideToggleModule,
     MatButtonToggleModule,
     HttpClientModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

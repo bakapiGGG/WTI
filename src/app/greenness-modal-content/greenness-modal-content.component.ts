@@ -16,15 +16,14 @@ interface DataRow {
   Greenness: number;
   Resilience: number;
   Score: number;
-  // Year: string;
 }
 
 @Component({
-  selector: 'app-efficiency-modal-content',
-  templateUrl: './efficiency-modal-content.component.html',
-  styleUrl: './efficiency-modal-content.component.css'
+  selector: 'app-greenness-modal-content',
+  templateUrl: './greenness-modal-content.component.html',
+  styleUrl: './greenness-modal-content.component.css'
 })
-export class EfficiencyModalContentComponent {
+export class GreennessModalContentComponent {
 
   rowData: any[] = [];
   gridApi: any;
@@ -35,7 +34,7 @@ export class EfficiencyModalContentComponent {
     width: 500,
     cellRendererParams: {
       suppressCount: true,
-      showOpenedGroup: true,
+      showOpenedGroup: false,
       suppressDoubleClickExpand: true,
       suppressEnterExpand: true,
       suppressExpandable: true
@@ -57,7 +56,7 @@ export class EfficiencyModalContentComponent {
       },
     { headerName: 'City', field: 'City', sortable: true, filter: true , rowGroup: true, hide: true},
     { headerName: 'Stakeholder', field: 'Stakeholder', sortable: true, filter: true, hide: true},
-    { headerName: 'Efficiency', field: 'Efficiency', sortable: true, filter: true, aggFunc: 'avg', sort: 'desc' },
+    { headerName: 'Greenness', field: 'Greenness', sortable: true, filter: true, aggFunc: 'avg', sort: 'desc' },
   ];
 
 
@@ -104,5 +103,3 @@ export class EfficiencyModalContentComponent {
   }
 
 }
-
-

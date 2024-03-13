@@ -26,6 +26,7 @@ h1 {
 
 .custom-modal {
     margin-top: 50px;
+    min-width: 1200px;
     /* padding-top: 200px;
     margin: 10px; */
   }

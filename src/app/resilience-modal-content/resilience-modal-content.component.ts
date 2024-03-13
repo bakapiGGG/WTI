@@ -20,11 +20,11 @@ interface DataRow {
 }
 
 @Component({
-  selector: 'app-efficiency-modal-content',
-  templateUrl: './efficiency-modal-content.component.html',
-  styleUrl: './efficiency-modal-content.component.css'
+  selector: 'app-resilience-modal-content',
+  templateUrl: './resilience-modal-content.component.html',
+  styleUrl: './resilience-modal-content.component.css'
 })
-export class EfficiencyModalContentComponent {
+export class ResilienceModalContentComponent {
 
   rowData: any[] = [];
   gridApi: any;
@@ -47,7 +47,7 @@ export class EfficiencyModalContentComponent {
   };
 
   columnDefs: ColDef[] = [
-    
+
     { headerName: 'ID', field: 'ID', hide: true },
     { headerName: 'Name', field: 'Name', hide: true },
     {
@@ -57,7 +57,7 @@ export class EfficiencyModalContentComponent {
       },
     { headerName: 'City', field: 'City', sortable: true, filter: true , rowGroup: true, hide: true},
     { headerName: 'Stakeholder', field: 'Stakeholder', sortable: true, filter: true, hide: true},
-    { headerName: 'Efficiency', field: 'Efficiency', sortable: true, filter: true, aggFunc: 'avg', sort: 'desc' },
+    { headerName: 'Resilience', field: 'Resilience', sortable: true, filter: true, aggFunc: 'avg', sort: 'desc' },
   ];
 
 
@@ -103,6 +103,6 @@ export class EfficiencyModalContentComponent {
     );
   }
 
+
+
 }
-
-
