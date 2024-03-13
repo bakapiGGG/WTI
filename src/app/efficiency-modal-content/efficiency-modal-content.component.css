@@ -1,1 +1,9 @@
-.ag-group-expanded { pointer-events: none; }
+.ag-group-expanded {
+    pointer-events: none;
+}
+
+ag-theme-quartz-dark .ag-icon-group-expanded {
+    pointer-events: none !important;
+    color: red !important; 
+    display: none !important;
+}

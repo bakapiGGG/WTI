@@ -5,9 +5,8 @@ import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid C
 import * as Papa from 'papaparse'; // CSV Parser
 import { GridReadyEvent, GridApi, ColumnApi } from 'ag-grid-community';
 import { GridOptions } from 'ag-grid-community';
-// import { MetricSparklineCellRenderer } from '../metric-sparkline/metric-sparkline.component';
 import { MetricSparklineComponent } from '../metric-sparkline/metric-sparkline.component';
-// import { GridReadyEvent} from 'ag-grid-enterprise'
+import { ViewChild, ElementRef } from '@angular/core';
 
 interface DataRow {
   ID: string;
@@ -29,6 +28,9 @@ interface DataRow {
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+
+  @ViewChild('efficiencyModal') efficiencyModal!: ElementRef;
+  
 
   enableCharts = true;
   autoGroupColumnDef = {
@@ -198,6 +200,7 @@ export class DashboardComponent {
   }
 
   setEfficiency() {
+    this.efficiencyModal.nativeElement.show();
 
   }
 

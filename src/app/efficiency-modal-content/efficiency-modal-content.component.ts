@@ -24,12 +24,14 @@ export class EfficiencyModalContentComponent {
       suppressCount: true,
       showOpenedGroup: true,
       suppressDoubleClickExpand: true,
-      suppressEnterExpand: true
+      suppressEnterExpand: true,
+      suppressExpandable: true
     }
   };
 
   defaultColDef = {
-    cellStyle: { 'white-space': 'normal', 'line-height': '75px', 'text-align': 'center' },
+    // cellStyle: { 'white-space': 'normal', 'line-height': '75px', 'text-align': 'center' },
+    cellStyle: { 'white-space': 'normal', 'text-align': 'center' },
   };
 
   columnDefs: ColDef[] = [
@@ -41,10 +43,9 @@ export class EfficiencyModalContentComponent {
         valueGetter: 'node.rowIndex + 1',
         cellClass: 'align-right' // if you want the numbers right-aligned
       },
-    { headerName: 'City', field: 'City', sortable: true, filter: true , rowGroup: true },
-    { headerName: 'Stakeholder', field: 'Stakeholder', sortable: true, filter: true},
-    { headerName: 'Efficiency', field: 'Efficiency', sortable: true, filter: true },
-    { headerName: 'Res Score', field: 'Resilience', aggFunc: 'avg', sort: 'desc'},
+    { headerName: 'City', field: 'City', sortable: true, filter: true , rowGroup: true, hide: true},
+    { headerName: 'Stakeholder', field: 'Stakeholder', sortable: true, filter: true, hide: true},
+    { headerName: 'Efficiency', field: 'Efficiency', sortable: true, filter: true, aggFunc: 'avg', sort: 'desc' },
   ];
 
 
