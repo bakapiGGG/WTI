@@ -41,3 +41,8 @@ h1 {
     font-size: 48px;
     font-weight: bold;
 }
+
+.img-fluid {
+    position: relative;
+    z-index: 9999;
+  }

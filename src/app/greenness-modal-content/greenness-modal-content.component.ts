@@ -29,6 +29,7 @@ export class GreennessModalContentComponent {
   gridApi: any;
   gridColumnApi: any;
   enableCharts = true;
+  uniqueContainerPorts: string[] = ['Guangzhou', 'Singapore', 'Los Angeles (Long Beach)', 'Ningbo-Zhoushan', 'Shenzhen', 'Qingdao', 'Shanghai', 'Tianjin', 'Hong Kong', 'Busan'];
   autoGroupColumnDef = {
     headerName: 'Container Port',
     width: 500,
@@ -38,25 +39,38 @@ export class GreennessModalContentComponent {
       suppressDoubleClickExpand: true,
       suppressEnterExpand: true,
       suppressExpandable: true
+    },
+    cellRendererSelector: (params: any) => {
+      if (this.uniqueContainerPorts.includes(params.node.key)) {
+        return; // use Default Cell Renderer
+      }
+      return { component: 'agGroupCellRenderer' };
     }
   };
 
+
+
   defaultColDef = {
-    cellStyle: { 'white-space': 'normal', 'text-align': 'center' },
+    cellStyle: { 'white-space': 'normal', 'text-align': 'left' },
   };
 
   columnDefs: ColDef[] = [
-    
+
     { headerName: 'ID', field: 'ID', hide: true },
     { headerName: 'Name', field: 'Name', hide: true },
     {
-        headerName: 'Rank',
-        valueGetter: 'node.rowIndex + 1',
-        cellClass: 'align-right' // if you want the numbers right-aligned
-      },
-    { headerName: 'City', field: 'City', sortable: true, filter: true , rowGroup: true, hide: true},
-    { headerName: 'Stakeholder', field: 'Stakeholder', sortable: true, filter: true, hide: true},
-    { headerName: 'Greenness', field: 'Greenness', sortable: true, filter: true, aggFunc: 'avg', sort: 'desc' },
+      headerName: 'Rank',
+      valueGetter: 'node.rowIndex + 1',
+      cellClass: 'align-right' // if you want the numbers right-aligned
+    },
+    { headerName: 'City', field: 'City', sortable: true, filter: true, rowGroup: true, hide: true },
+    { headerName: 'Stakeholder', field: 'Stakeholder', sortable: true, filter: true, hide: true },
+    {
+      headerName: 'Greenness', field: 'Greenness', sortable: true, filter: true, aggFunc: 'avg', sort: 'desc', valueFormatter: params => {
+        const value = params.value.value;
+        return typeof value === 'number' ? value.toFixed(2) : params.value;
+      }
+    },
   ];
 
 
@@ -73,7 +87,7 @@ export class GreennessModalContentComponent {
     // this.gridApi.sizeColumnsToFit();
     setTimeout(() => {
       params.api.sizeColumnsToFit();
-    }, 0); 
+    }, 0);
 
   }
 

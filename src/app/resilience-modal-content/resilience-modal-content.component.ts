@@ -30,6 +30,7 @@ export class ResilienceModalContentComponent {
   gridApi: any;
   gridColumnApi: any;
   enableCharts = true;
+  uniqueContainerPorts: string[] = ['Guangzhou', 'Singapore', 'Los Angeles (Long Beach)', 'Ningbo-Zhoushan', 'Shenzhen', 'Qingdao', 'Shanghai', 'Tianjin', 'Hong Kong', 'Busan'];
   autoGroupColumnDef = {
     headerName: 'Container Port',
     width: 500,
@@ -39,11 +40,17 @@ export class ResilienceModalContentComponent {
       suppressDoubleClickExpand: true,
       suppressEnterExpand: true,
       suppressExpandable: true
+    },
+    cellRendererSelector: (params: any) => {
+      if (this.uniqueContainerPorts.includes(params.node.key)) {
+        return; // use Default Cell Renderer
+      }
+      return { component: 'agGroupCellRenderer' };      
     }
   };
 
   defaultColDef = {
-    cellStyle: { 'white-space': 'normal', 'text-align': 'center' },
+    cellStyle: { 'white-space': 'normal', 'text-align': 'left' },
   };
 
   columnDefs: ColDef[] = [
@@ -57,7 +64,10 @@ export class ResilienceModalContentComponent {
       },
     { headerName: 'City', field: 'City', sortable: true, filter: true , rowGroup: true, hide: true},
     { headerName: 'Stakeholder', field: 'Stakeholder', sortable: true, filter: true, hide: true},
-    { headerName: 'Resilience', field: 'Resilience', sortable: true, filter: true, aggFunc: 'avg', sort: 'desc' },
+    { headerName: 'Resilience', field: 'Resilience', sortable: true, filter: true, aggFunc: 'avg', sort: 'desc', valueFormatter: params => {
+      const value = params.value.value;
+      return typeof value === 'number' ? value.toFixed(2) : params.value;
+    } },
   ];
 
 

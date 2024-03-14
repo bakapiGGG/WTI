@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, Input, Renderer2} from '@angular/core';
+import { AfterViewInit, Component, inject, Input, Renderer2, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // HTTP Client
 // import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
 import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid Column Definition
@@ -21,7 +21,6 @@ interface DataRow {
   Greenness: number;
   Resilience: number;
   Score: number;
-  // Year: string;
 }
 
 
@@ -33,29 +32,33 @@ interface DataRow {
 export class DashboardComponent {
 
   @ViewChild('efficiencyModal') efficiencyModal!: ElementRef;
-  
 
+  uniqueContainerPorts: string[] = ['Guangzhou', 'Singapore', 'Los Angeles (Long Beach)', 'Ningbo-Zhoushan', 'Shenzhen', 'Qingdao', 'Shanghai', 'Tianjin', 'Hong Kong', 'Busan'];
+  modalTitle = 'Default Title';
   enableCharts = true;
   autoGroupColumnDef = {
     headerName: 'Container Port',
     cellRendererParams: {
       suppressCount: true,
       showOpenedGroup: true
+    },
+    cellRendererSelector: (params: any) => {
+      if (this.uniqueContainerPorts.includes(params.node.key)) {
+        return; // use Default Cell Renderer
+      }
+      return { component: 'agGroupCellRenderer' };
     }
   };
+  @Output() modalOpened = new EventEmitter<void>();
 
   constructor(private http: HttpClient, private modalService: NgbModal, private renderer: Renderer2) {
     this.fetchCSV()
   }
 
-  
-
   public labelFormatter(params: any) {
     // return params.value.toFixed(2) + "\nTest";
     return params.value.toFixed(2);
   }
-
-
 
   public columnFormatter = (params: any) => {
     const { first, second, third, last } = params;
@@ -79,15 +82,10 @@ export class DashboardComponent {
     };
   }
 
-  
-
   columnDefs: ColDef[] = [
+
     { field: 'ID', headerName: 'ID', hide: true },
-    // {
-    //   headerName: 'Rank',
-    //   valueGetter: 'node.rowIndex + 1',
-    //   cellClass: 'align-right' // if you want the numbers right-aligned
-    // },
+
     { field: 'Name', headerName: 'Name', hide: true },
     { field: 'City', headerName: 'City', rowGroup: true, filter: true, hide: true },
     { field: 'Stakeholder', headerName: 'Stakeholder', rowGroup: true, filter: true, hide: true },
@@ -100,7 +98,6 @@ export class DashboardComponent {
         const greenness = params.getValue('Greenness') || 0;
         const resilience = params.getValue('Resilience') || 0;
         const weightedAverage = 0.3 * efficiency + 0.2 * smartness + 0.3 * greenness + 0.2 * resilience;
-        // console.log('Weighted Average:', weightedAverage);
 
         return weightedAverage;
       },
@@ -112,22 +109,23 @@ export class DashboardComponent {
       field: 'sparkline',
       cellRenderer: 'agSparklineCellRenderer',
       cellRendererParams: {
-        sparklineOptions: {
-          type: 'column',
-          // formatter: this.columnFormatter,
-          label: {
-            enabled: true,
-            formatter: this.labelFormatter
-
-          },
-          stroke: '#91cc75',
-          highlightStyle: {
-            fill: 'orange',
-            placement: 'center'
-          },
-          paddingInner: 0.3,
-          paddingOuter: 0.1,
-        } as ColumnSparklineOptions,
+        sparklineOptions:
+          {
+            type: 'column',
+            // formatter: this.columnFormatter,
+            label: {
+              enabled: true,
+              placement: 'center',
+              formatter: this.labelFormatter
+            },
+            stroke: '#91cc75',
+            highlightStyle: {
+              fill: 'orange',
+              placement: 'center'
+            },
+            paddingInner: 0.3,
+            paddingOuter: 0.1,
+          } as ColumnSparklineOptions,
       },
       valueGetter: params => {
         // console.log(params); // Debug purposes
@@ -145,14 +143,13 @@ export class DashboardComponent {
     { field: 'Smartness', headerName: 'Smartness', aggFunc: 'avg', hide: true },
     { field: 'Greenness', headerName: 'Greenness', aggFunc: 'avg', hide: true },
     { field: 'Resilience', headerName: 'Resilience', aggFunc: 'avg', hide: true },
-    // { field: 'Year', headerName: 'Year', filter: true },
 
   ];
 
   defaultColDef = {
     // sortable: true,
     // filter: true
-    cellStyle: { 'white-space': 'normal', 'line-height': '75px', 'text-align': 'center' },
+    cellStyle: { 'white-space': 'normal', 'line-height': '75px', 'text-align': 'left' },
   };
 
   rowData: any[] = [];
@@ -170,31 +167,39 @@ export class DashboardComponent {
     // this.gridColumnApi.autoSizeColumn('yourColumnName');
   }
 
-  modalTitle = 'Default Title';
+
 
   openModal(id: string) {
 
-    console.log('id is ', id);
+    // Debugging purposes
+    // console.log('id is ', id);
 
     switch (id) {
       case 'resilienceModal':
         this.modalTitle = 'Resilience Ranking';
+        this.modalOpened.emit();
+        // console.log('event emitting is working!')
         break;
       case 'efficiencyModal':
         this.modalTitle = 'Efficiency Ranking';
+        this.modalOpened.emit();
+        // console.log('event emitting is working!')
         break;
       case 'smartnessModal':
         this.modalTitle = 'Smartness Ranking';
+        this.modalOpened.emit();
+        // console.log('event emitting is working!')
         break;
       case 'greennessModal':
         this.modalTitle = 'Greenness Ranking';
+        this.modalOpened.emit();
+        // console.log('event emitting is working!')
         break;
       // add more cases as needed
     }
-
     // code to open the modal
-  }
 
+  }
 
   setShipliner() {
     this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Shipliner'] } })
@@ -239,41 +244,6 @@ export class DashboardComponent {
     modalRef.componentInstance.name = 'World';
 
   }
-
-  // setEfficiency() {
-
-  //   const efficiencyColumnDefs = [
-  //     {
-  //       headerName: 'Rank',
-  //       valueGetter: 'node.rowIndex + 1',
-  //       // cellClass: 'align-right' // if you want the numbers right-aligned
-  //     },
-  //     {
-  //       headerName: 'Container Port',
-  //       field: 'City',
-  //     },
-  //     {
-  //       field: 'Stakeholder', 
-  //       headerName: 'Stakeholder', 
-  //       rowGroup: true, 
-  //       filter: true, 
-  //       hide: true
-  //     },
-  //     {
-  //       headerName: 'Resilience Score',
-  //       rowGroup: true,
-  //       valueGetter: (params: any) => {
-  //         const resilience = params.getValue('Resilience') || 0;
-  //         return resilience;
-  //       }
-  //     }
-
-
-  //   ]
-
-  //   //Update the column definitions 
-  //   this.gridApi.setColumnDefs(efficiencyColumnDefs);
-  // }
 
   setSmartness() {
     // Get the column definition for the 'Score Chart' column
@@ -342,9 +312,6 @@ export class DashboardComponent {
     this.gridApi.refreshCells({ columns: ['sparkline'] });
   }
 
-
-
-
   fetchCSV() {
     this.http.get('assets/data.csv', { responseType: 'text' }).subscribe(
       data => {
@@ -357,8 +324,6 @@ export class DashboardComponent {
           'Greenness': Number(row['Greenness']),
           'Resilience': Number(row['Resilience'])
         }));
-
-
 
         this.rowData = parsedData;
 
