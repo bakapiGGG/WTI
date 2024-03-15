@@ -36,6 +36,7 @@ export class DashboardComponent {
   uniqueContainerPorts: string[] = ['Guangzhou', 'Singapore', 'Los Angeles (Long Beach)', 'Ningbo-Zhoushan', 'Shenzhen', 'Qingdao', 'Shanghai', 'Tianjin', 'Hong Kong', 'Busan'];
   modalTitle = 'Default Title';
   enableCharts = true;
+  // private counter: number = 0;
   autoGroupColumnDef = {
     headerName: 'Container Port',
     cellRendererParams: {
@@ -52,13 +53,40 @@ export class DashboardComponent {
   @Output() modalOpened = new EventEmitter<void>();
 
   constructor(private http: HttpClient, private modalService: NgbModal, private renderer: Renderer2) {
+    this.labelFormatter = this.labelFormatter.bind(this);
     this.fetchCSV()
   }
 
-  public labelFormatter(params: any) {
-    // return params.value.toFixed(2) + "\nTest";
-    return params.value.toFixed(2);
+  // public labelFormatter(params: any) {
+  //   // return params.value.toFixed(2) + "\nTest";
+  //   const paramsString = JSON.stringify(params);
+  //   console.log('params:', paramsString);
+
+  //   return params.value.toFixed(2);
+  // }
+
+  private counter: number = 0;
+
+  public labelFormatter = (params: any) => {
+    this.counter += 1;
+
+    if (this.counter % 4 == 1) {
+      return "Efficiency" + '\n' + params.value.toFixed(2);
+    }
+
+    else if (this.counter % 4 == 2) {
+      return "Smartness" + '\n' + params.value.toFixed(2);
+    }
+
+    else if (this.counter % 4 == 3) {
+      return "Greenness" + '\n' + params.value.toFixed(2);
+    }
+
+    else {
+      return "Resilience" + '\n' + params.value.toFixed(2);
+    }
   }
+
 
   public columnFormatter = (params: any) => {
     const { first, second, third, last } = params;
@@ -85,7 +113,6 @@ export class DashboardComponent {
   columnDefs: ColDef[] = [
 
     { field: 'ID', headerName: 'ID', hide: true },
-
     { field: 'Name', headerName: 'Name', hide: true },
     { field: 'City', headerName: 'City', rowGroup: true, filter: true, hide: true },
     { field: 'Stakeholder', headerName: 'Stakeholder', rowGroup: true, filter: true, hide: true },
@@ -112,11 +139,17 @@ export class DashboardComponent {
         sparklineOptions:
           {
             type: 'column',
+            fill: 'lightgrey',
             // formatter: this.columnFormatter,
             label: {
               enabled: true,
-              placement: 'center',
-              formatter: this.labelFormatter
+              placement: 'insideBase',
+              fontWeight: 'bold',
+              fontSize: 11,
+              fontFamily: 'Arial, Helvetica, sans-serif',
+              formatter: this.labelFormatter,
+
+
             },
             stroke: '#91cc75',
             highlightStyle: {
@@ -129,13 +162,14 @@ export class DashboardComponent {
       },
       valueGetter: params => {
         // console.log(params); // Debug purposes
-        const values = [
-          params.getValue('Efficiency').value,
-          params.getValue('Smartness').value,
-          params.getValue('Greenness').value,
-          params.getValue('Resilience').value
+
+        const values: any = [
+          ['Efficiency', params.getValue('Efficiency').value],
+          ['Smartness', params.getValue('Smartness').value],
+          ['Greenness', params.getValue('Greenness').value],
+          ['Resilience', params.getValue('Resilience').value]
         ];
-        // console.log(values); // Debugging purposes
+        // console.log("The value you get", values); // Debugging purposes
         return values;
       },
     },

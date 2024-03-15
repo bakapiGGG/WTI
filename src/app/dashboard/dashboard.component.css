@@ -7,7 +7,7 @@
 }
 
 .bg-img {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('C:/Users/zyachin/Desktop/Repos/WTI/src/assets/sea.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../../src/assets/sea.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
