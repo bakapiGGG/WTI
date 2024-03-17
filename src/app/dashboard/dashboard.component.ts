@@ -9,8 +9,6 @@ import { MetricSparklineComponent } from '../metric-sparkline/metric-sparkline.c
 import { ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-
-
 interface DataRow {
   ID: string;
   Name: string;
@@ -36,7 +34,6 @@ export class DashboardComponent {
   uniqueContainerPorts: string[] = ['Guangzhou', 'Singapore', 'Los Angeles (Long Beach)', 'Ningbo-Zhoushan', 'Shenzhen', 'Qingdao', 'Shanghai', 'Tianjin', 'Hong Kong', 'Busan'];
   modalTitle = 'Default Title';
   enableCharts = true;
-  // private counter: number = 0;
   autoGroupColumnDef = {
     headerName: 'Container Port',
     cellRendererParams: {
@@ -56,14 +53,6 @@ export class DashboardComponent {
     this.labelFormatter = this.labelFormatter.bind(this);
     this.fetchCSV()
   }
-
-  // public labelFormatter(params: any) {
-  //   // return params.value.toFixed(2) + "\nTest";
-  //   const paramsString = JSON.stringify(params);
-  //   console.log('params:', paramsString);
-
-  //   return params.value.toFixed(2);
-  // }
 
   private counter: number = 0;
 
@@ -236,96 +225,56 @@ export class DashboardComponent {
   }
 
   setShipliner() {
-    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Shipliner'] } })
-      .then(() => {
-        this.gridApi.onFilterChanged();
-      });
+    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Shipliner'] } });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
+
   }
 
   setRegulator() {
-    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Regulator'] } }).then(() => {
-      this.gridApi.onFilterChanged();
-    });
+    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Regulator'] } });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
+
   }
 
   setLogisticsPartners() {
-    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Logistics Partners'] } }).then(() => {
-      this.gridApi.onFilterChanged();
-    });
+    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Logistics Partners'] } });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
+
 
   }
 
   setPortOperations() {
-    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Port Operators'] } }).then(() => {
-      this.gridApi.onFilterChanged();
-    });
+    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Port Operators'] } });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
+
 
   }
 
   clearStakeholders() {
-    this.gridApi.setFilterModel({ 'Stakeholder': null }).then(() => {
-      this.gridApi.onFilterChanged();
-    });
+    this.gridApi.setFilterModel({ 'Stakeholder': null });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
   }
 
-  setEfficiency() {
-    this.modalService.open(this.efficiencyModal, { size: 'lg' });
+ 
 
-  }
+ 
 
-  open() {
-    const modalRef = this.modalService.open(this.efficiencyModal);
-    modalRef.componentInstance.name = 'World';
 
-  }
-
-  setSmartness() {
-    // Get the column definition for the 'Score Chart' column
-    const columnDef = this.gridApi.getColumnDef('sparkline');
-
-    // Update the valueGetter function in the column definition
-    columnDef.valueGetter = (params: any) => {
-      const values = [
-        params.getValue('Smartness').value
-      ];
-      return values;
-    };
-
-    // Refresh the cells in the 'Score Chart' column
-    this.gridApi.refreshCells({ columns: ['sparkline'] });
-  }
-
-  setGreenness() {
-    // Get the column definition for the 'Score Chart' column
-    const columnDef = this.gridApi.getColumnDef('sparkline');
-
-    // Update the valueGetter function in the column definition
-    columnDef.valueGetter = (params: any) => {
-      const values = [
-        params.getValue('Greenness').value
-      ];
-      return values;
-    };
-
-    // Refresh the cells in the 'Score Chart' column
-    this.gridApi.refreshCells({ columns: ['sparkline'] });
-  }
-
-  setResilience() {
-    // Get the column definition for the 'Score Chart' column
-    const columnDef = this.gridApi.getColumnDef('sparkline');
-
-    // Update the valueGetter function in the column definition
-    columnDef.valueGetter = (params: any) => {
-      const values = [
-        params.getValue('Resilience').value
-      ];
-      return values;
-    };
-
-    // Refresh the cells in the 'Score Chart' column
-    this.gridApi.refreshCells({ columns: ['sparkline'] });
-  }
 
   clearIndicators() {
     // Get the column definition for the 'Score Chart' column
