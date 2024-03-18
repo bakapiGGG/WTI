@@ -3,11 +3,7 @@ import { HttpClient } from '@angular/common/http'; // HTTP Client
 // import { AgGridAngular } from 'ag-grid-angular'; // AG Grid Component
 import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid Column Definition
 import * as Papa from 'papaparse'; // CSV Parser
-import { GridReadyEvent, GridApi, ColumnApi } from 'ag-grid-community';
-import { GridOptions } from 'ag-grid-community';
-import { MetricSparklineComponent } from '../metric-sparkline/metric-sparkline.component';
 import { ViewChild, ElementRef } from '@angular/core';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface DataRow {
   ID: string;
@@ -49,7 +45,7 @@ export class DashboardComponent {
   };
   @Output() modalOpened = new EventEmitter<void>();
 
-  constructor(private http: HttpClient, private modalService: NgbModal, private renderer: Renderer2) {
+  constructor(private http: HttpClient) {
     this.labelFormatter = this.labelFormatter.bind(this);
     this.fetchCSV()
   }
@@ -73,6 +69,28 @@ export class DashboardComponent {
 
     else {
       return "Resilience" + '\n' + params.value.toFixed(2);
+    }
+  }
+
+  private colorCounter: number = 0;
+
+  public colorFormatter = () => {
+    this.colorCounter += 1;
+
+    if (this.colorCounter % 4 == 1) {
+      return 'red'; // color for Efficiency
+    }
+  
+    else if (this.colorCounter % 4 == 2) {
+      return 'blue'; // color for Smartness
+    }
+  
+    else if (this.colorCounter % 4 == 3) {
+      return 'green'; // color for Greenness
+    }
+  
+    else {
+      return 'yellow'; // color for Resilience
     }
   }
 
@@ -101,6 +119,12 @@ export class DashboardComponent {
 
   columnDefs: ColDef[] = [
 
+    {
+      headerName: 'Rank',
+      field: 'Rank',
+      valueGetter: 'node.rowIndex + 1',
+      width: 100,
+    },
     { field: 'ID', headerName: 'ID', hide: true },
     { field: 'Name', headerName: 'Name', hide: true },
     { field: 'City', headerName: 'City', rowGroup: true, filter: true, hide: true },
@@ -128,8 +152,8 @@ export class DashboardComponent {
         sparklineOptions:
           {
             type: 'column',
-            fill: 'lightgrey',
-            // formatter: this.columnFormatter,
+            // fill: 'lightgrey',
+            fill: this.colorFormatter(),
             label: {
               enabled: true,
               placement: 'insideBase',
@@ -172,7 +196,7 @@ export class DashboardComponent {
   defaultColDef = {
     // sortable: true,
     // filter: true
-    cellStyle: { 'white-space': 'normal', 'line-height': '75px', 'text-align': 'left' },
+    cellStyle: { 'white-space': 'normal', 'line-height': '75px', 'text-align': 'left', 'font-size': '32px' },
   };
 
   rowData: any[] = [];
@@ -183,11 +207,10 @@ export class DashboardComponent {
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.gridApi.moveColumns(['Rank'], 0);
     // Auto-size all columns
     this.gridApi.sizeColumnsToFit();
 
-    // Or auto-size a specific column
-    // this.gridColumnApi.autoSizeColumn('yourColumnName');
   }
 
 
@@ -270,9 +293,9 @@ export class DashboardComponent {
     }, 0);
   }
 
- 
 
- 
+
+
 
 
 

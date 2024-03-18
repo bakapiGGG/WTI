@@ -1,9 +1,15 @@
+
+
 .container-fluid {
-    padding-top: 75px;
     width: 100%;
     /* Full width */
-    height: 100vh;
-
+    /* height: 100vh; */
+    /* Full height */
+    overflow: auto;
+    /* Add a scrollbar if the content overflows */
+    padding-top: 75px;
+    text-align: left;
+    min-height: 100vh;
 }
 
 .bg-img {
@@ -25,7 +31,7 @@ h1 {
 }
 
 .custom-modal {
-    margin-top: 50px;
+    margin-top: 100px;
     min-width: 1200px;
     /* padding-top: 200px;
     margin: 10px; */

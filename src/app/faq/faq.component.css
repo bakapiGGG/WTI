@@ -15,18 +15,18 @@
 
 
 
+
+
 .container-fluid {
     width: 100%;
     /* Full width */
-    height: max-content;
+    /* height: 100vh; */
     /* Full height */
     overflow: auto;
     /* Add a scrollbar if the content overflows */
     padding-top: 75px;
     text-align: left;
-    /* background-image: url('C:/Users/zyachin/Desktop/Repos/WTI/src/assets/sea.jpg');  */
-    background-repeat: no-repeat;
-    background-size: cover;
+    min-height: 100vh;
 }
 
 .bg-img {

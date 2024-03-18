@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // HTTP Client
 import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid Column Definition
 import * as Papa from 'papaparse'; // CSV Parser
@@ -23,7 +23,7 @@ interface DataRow {
   templateUrl: './greenness-modal-content.component.html',
   styleUrl: './greenness-modal-content.component.css'
 })
-export class GreennessModalContentComponent {
+export class GreennessModalContentComponent implements OnDestroy {
 
   rowData: any[] = [];
   gridApi: any;
@@ -60,6 +60,7 @@ export class GreennessModalContentComponent {
     { headerName: 'Name', field: 'Name', hide: true },
     {
       headerName: 'Rank',
+      field: 'Rank',
       valueGetter: 'node.rowIndex + 1',
       cellClass: 'align-right' // if you want the numbers right-aligned
     },
@@ -79,16 +80,24 @@ export class GreennessModalContentComponent {
 
   }
 
+  private intervalId: any;
+
   // After the grid has been initialized...
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    // Auto-size all columns
-    // this.gridApi.sizeColumnsToFit();
-    setTimeout(() => {
-      params.api.sizeColumnsToFit();
-    }, 0);
+    this.gridApi.moveColumns(['Rank'], 0);
+    // this.intervalId = setInterval(() => {
+    //   params.api.sizeColumnsToFit();
+    // }, 500);
 
+  }
+
+  
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   fetchCSV() {

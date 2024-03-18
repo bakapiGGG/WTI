@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // HTTP Client
 import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid Column Definition
 import * as Papa from 'papaparse'; // CSV Parser
@@ -24,7 +24,8 @@ interface DataRow {
   templateUrl: './efficiency-modal-content.component.html',
   styleUrl: './efficiency-modal-content.component.css'
 })
-export class EfficiencyModalContentComponent {
+export class EfficiencyModalContentComponent implements OnDestroy {
+
 
   rowData: any[] = [];
   gridApi: any;
@@ -46,12 +47,12 @@ export class EfficiencyModalContentComponent {
       if (this.uniqueContainerPorts.includes(params.node.key)) {
         return; // use Default Cell Renderer
       }
-      return { component: 'agGroupCellRenderer' };      
+      return { component: 'agGroupCellRenderer' };
     }
   };
 
   defaultColDef = {
-    cellStyle: { 'white-space': 'normal', 'text-align': 'left'},
+    cellStyle: { 'white-space': 'normal', 'text-align': 'left' },
   };
 
   columnDefs: ColDef[] = [
@@ -59,6 +60,7 @@ export class EfficiencyModalContentComponent {
     { headerName: 'Name', field: 'Name', hide: true },
     {
       headerName: 'Rank',
+      field: 'Rank',
       valueGetter: 'node.rowIndex + 1',
       cellClass: 'align-right' // if you want the numbers right-aligned
     },
@@ -71,7 +73,7 @@ export class EfficiencyModalContentComponent {
       filter: true,
       aggFunc: 'avg',
       sort: 'desc',
-      
+
       valueFormatter: params => {
         const value = params.value.value;
         return typeof value === 'number' ? value.toFixed(2) : params.value;
@@ -81,24 +83,29 @@ export class EfficiencyModalContentComponent {
 
 
   constructor(private http: HttpClient) {
-    this.fetchCSV()
+    this.fetchCSV();
 
   }
 
- 
+  private intervalId: any;
 
   // After the grid has been initialized...
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    params.api.sizeColumnsToFit();
-    // Auto-size all columns
-    // this.gridApi.sizeColumnsToFit();
-    // setTimeout(() => {
+    this.gridApi.moveColumns(['Rank'], 0);
+    // this.intervalId = setInterval(() => {
     //   params.api.sizeColumnsToFit();
-    // }, 5000); 
-
+    // }, 500);
   }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+
 
   fetchCSV() {
     this.http.get('assets/data.csv', { responseType: 'text' }).subscribe(
