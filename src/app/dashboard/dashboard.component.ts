@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http'; // HTTP Client
 import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid Column Definition
 import * as Papa from 'papaparse'; // CSV Parser
 import { ViewChild, ElementRef } from '@angular/core';
+import { ColumnFormatterParams } from 'ag-grid-community';
 
 interface DataRow {
   ID: string;
@@ -46,7 +47,6 @@ export class DashboardComponent {
   @Output() modalOpened = new EventEmitter<void>();
 
   constructor(private http: HttpClient) {
-    this.labelFormatter = this.labelFormatter.bind(this);
     this.fetchCSV()
   }
 
@@ -56,61 +56,50 @@ export class DashboardComponent {
     this.counter += 1;
 
     if (this.counter % 4 == 1) {
-      return "Efficiency" + '\n' + params.value.toFixed(2);
+      // return "Efficiency" + '\n' + params.value.toFixed(2);
+      return Math.round(params.value) + '%' + '\n\n' + 'E';
     }
 
     else if (this.counter % 4 == 2) {
-      return "Smartness" + '\n' + params.value.toFixed(2);
+      // return "Smartness" + '\n' + params.value.toFixed(2);
+      return Math.round(params.value) + '%' + '\n\n' + 'S';
     }
 
     else if (this.counter % 4 == 3) {
-      return "Greenness" + '\n' + params.value.toFixed(2);
+      // return "Greenness" + '\n' + params.value.toFixed(2);
+      return Math.round(params.value) + '%' + '\n\n' + 'G';
     }
 
     else {
-      return "Resilience" + '\n' + params.value.toFixed(2);
+      // return "Resilience" + '\n' + params.value.toFixed(2);
+      return Math.round(params.value) + '%' + '\n\n' + 'R';
     }
   }
 
-  private colorCounter: number = 0;
-
-  public colorFormatter = () => {
-    this.colorCounter += 1;
-
-    if (this.colorCounter % 4 == 1) {
-      return 'red'; // color for Efficiency
-    }
   
-    else if (this.colorCounter % 4 == 2) {
-      return 'blue'; // color for Smartness
-    }
-  
-    else if (this.colorCounter % 4 == 3) {
-      return 'green'; // color for Greenness
-    }
-  
-    else {
-      return 'yellow'; // color for Resilience
-    }
-  }
-
-
-  public columnFormatter = (params: any) => {
-    const { first, second, third, last } = params;
+  public columnFormatter = (params: ColumnFormatterParams) => {
+    
+    // // Debugging purposes
+    // console.log("xValue: ", params.xValue.toString());
 
     let color;
-    if (first) {
-      color = '#ea7ccc'; // color for first column
-    } else if (second) {
-      color = 'skyblue'; // color for second column
-    } else if (third) {
-      color = 'green'; // color for third column
-    } else if (last) {
-      color = 'orange'; // color for last column
-    } else {
-      color = 'skyblue'; // default color for other columns
+    if (params.xValue.toString() === 'Efficiency') 
+    {
+      color = '#37C9EE'
+    } 
+    else if (params.xValue.toString() === 'Smartness') 
+    {
+      color = '#6F6CF9'
     }
-
+    else if (params.xValue.toString() === 'Greenness') 
+    {
+      color = '#01B9AF'
+    }
+    else 
+    {
+      color = '#3794FF'
+    }
+    
     return {
       fill: color,
       stroke: color
@@ -131,9 +120,9 @@ export class DashboardComponent {
     { field: 'Stakeholder', headerName: 'Stakeholder', rowGroup: true, filter: true, hide: true },
     {
       headerName: 'Average Score',
+      width: 50,
       valueGetter: params => {
         const efficiency = params.getValue('Efficiency') || 0;
-        // console.log('Efficiency:', efficiency);
         const smartness = params.getValue('Smartness') || 0;
         const greenness = params.getValue('Greenness') || 0;
         const resilience = params.getValue('Resilience') || 0;
@@ -147,29 +136,29 @@ export class DashboardComponent {
     {
       headerName: 'Score Chart',
       field: 'sparkline',
+      width: 40,
       cellRenderer: 'agSparklineCellRenderer',
       cellRendererParams: {
         sparklineOptions:
           {
             type: 'column',
+
             // fill: 'lightgrey',
-            fill: this.colorFormatter(),
             label: {
               enabled: true,
               placement: 'insideBase',
+              color: '#000000',
               fontWeight: 'bold',
               fontSize: 11,
               fontFamily: 'Arial, Helvetica, sans-serif',
               formatter: this.labelFormatter,
-
-
             },
-            stroke: '#91cc75',
+            formatter: this.columnFormatter,
             highlightStyle: {
-              fill: 'orange',
+              fill: 'black',
               placement: 'center'
             },
-            paddingInner: 0.3,
+            paddingInner: 0.2,
             paddingOuter: 0.1,
           } as ColumnSparklineOptions,
       },
@@ -196,7 +185,7 @@ export class DashboardComponent {
   defaultColDef = {
     // sortable: true,
     // filter: true
-    cellStyle: { 'white-space': 'normal', 'line-height': '75px', 'text-align': 'left', 'font-size': '32px' },
+    cellStyle: { 'white-space': 'normal', 'line-height': '100px', 'text-align': 'left', 'font-size': '32px' },
   };
 
   rowData: any[] = [];
