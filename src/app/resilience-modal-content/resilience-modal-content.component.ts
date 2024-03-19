@@ -79,6 +79,52 @@ export class ResilienceModalContentComponent implements OnDestroy{
 
   }
 
+  setShipliner() {
+    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Shipliner'] } });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
+
+  }
+
+  setRegulator() {
+    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Regulator'] } });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
+
+  }
+
+  setLogisticsPartners() {
+    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Logistics Partners'] } });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
+
+
+  }
+
+  setPortOperations() {
+    this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Port Operators'] } });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
+
+
+  }
+
+  clearStakeholders() {
+    this.gridApi.setFilterModel({ 'Stakeholder': null });
+    this.gridApi.onFilterChanged();
+    setTimeout(() => {
+      this.gridApi.refreshCells();
+    }, 0);
+  }
+
   private intervalId: any;
 
   // After the grid has been initialized...

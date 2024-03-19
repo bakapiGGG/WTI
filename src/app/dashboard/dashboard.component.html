@@ -14,12 +14,12 @@
         <div class="dropdown">
             <a class="btn btn-secondary btn-lg dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                Indicators
+                {{selectedIndicator}}
             </a>
 
             <ul class="dropdown-menu dropdown-menu-dark">
                 <!-- <li><a class="dropdown-item" (click)="clearIndicators()">All</a></li>  -->
-                <li>
+                <!-- <li>
                     <a class="dropdown-item" data-bs-toggle="modal" (click)="openModal('efficiencyModal')"
                         data-bs-target="#efficiencyModal">Efficiency</a>
                 </li>
@@ -34,6 +34,21 @@
                 <li>
                     <a class="dropdown-item" data-bs-toggle="modal" (click)="openModal('resilienceModal')"
                         data-bs-target="#resilienceModal">Resilience</a>
+                </li> -->
+                <li>
+                    <a class="dropdown-item" (click)="clearIndicators()">All</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" (click)="setEfficiency()">Efficiency</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" (click)="setSmartness()">Smartness</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" (click)="setGreenness()">Greenness</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" (click)="setResilience()">Resilience</a>
                 </li>
 
                 <!-- <li><a class="dropdown-item" (click)="setSmartness()">Smartness</a></li>
@@ -44,7 +59,8 @@
         <div class="dropdown">
             <a class="btn btn-secondary btn-lg dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                Stakeholders
+
+                {{selectedStakeholder}}
             </a>
 
             <ul class="dropdown-menu dropdown-menu-dark">

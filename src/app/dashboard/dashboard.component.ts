@@ -29,6 +29,12 @@ export class DashboardComponent {
   @ViewChild('efficiencyModal') efficiencyModal!: ElementRef;
 
   uniqueContainerPorts: string[] = ['Guangzhou', 'Singapore', 'Los Angeles (Long Beach)', 'Ningbo-Zhoushan', 'Shenzhen', 'Qingdao', 'Shanghai', 'Tianjin', 'Hong Kong', 'Busan'];
+  calculateEfficiencyOnly: boolean = false;
+  calculateSmartnessOnly: boolean = false;
+  calculateGreennessOnly: boolean = false;
+  calculateResilienceOnly: boolean = false;
+  selectedIndicator: string = 'Indicators';
+  selectedStakeholder: string = 'Stakeholders';
   modalTitle = 'Default Title';
   enableCharts = true;
   autoGroupColumnDef = {
@@ -122,20 +128,44 @@ export class DashboardComponent {
       headerName: 'Average Score',
       width: 50,
       valueGetter: params => {
-        const efficiency = params.getValue('Efficiency') || 0;
-        const smartness = params.getValue('Smartness') || 0;
-        const greenness = params.getValue('Greenness') || 0;
-        const resilience = params.getValue('Resilience') || 0;
+        const efficiency = Number(params.getValue('Efficiency')) || 0;
+        const smartness = Number(params.getValue('Smartness')) || 0;
+        const greenness = Number(params.getValue('Greenness')) || 0;
+        const resilience = Number(params.getValue('Resilience')) || 0;
         const weightedAverage = 0.3 * efficiency + 0.2 * smartness + 0.3 * greenness + 0.2 * resilience;
 
-        return weightedAverage;
+        if (this.calculateEfficiencyOnly) {
+          return efficiency;
+        }
+        else if (this.calculateSmartnessOnly) {
+          return smartness;
+        }
+        else if (this.calculateGreennessOnly) {
+          return greenness;
+        }
+        else if (this.calculateResilienceOnly) {
+          return resilience;
+        }
+        else {
+          return weightedAverage;
+        }
       },
+      // valueGetter: params => {
+      //   const efficiency = params.getValue('Efficiency') || 0;
+      //   const smartness = params.getValue('Smartness') || 0;
+      //   const greenness = params.getValue('Greenness') || 0;
+      //   const resilience = params.getValue('Resilience') || 0;
+      //   const weightedAverage = 0.3 * efficiency + 0.2 * smartness + 0.3 * greenness + 0.2 * resilience;
+
+      //   return weightedAverage;
+      // },
       valueFormatter: params => params.value.toFixed(2),
       sort: 'desc',
     },
     {
       headerName: 'Score Chart',
       field: 'sparkline',
+      colId: 'score',
       width: 40,
       cellRenderer: 'agSparklineCellRenderer',
       cellRendererParams: {
@@ -202,6 +232,8 @@ export class DashboardComponent {
 
   }
 
+  
+
 
 
   openModal(id: string) {
@@ -236,7 +268,68 @@ export class DashboardComponent {
 
   }
 
+  clearIndicators() {
+    this.calculateEfficiencyOnly = false;
+    this.calculateSmartnessOnly = false;
+    this.calculateGreennessOnly = false;
+    this.calculateResilienceOnly = false;
+    this.selectedIndicator = 'Indicators';
+    this.gridApi.refreshCells();
+    this.gridApi.setColumnsVisible(['score'], true); // Unhide the score column
+    this.gridApi.sizeColumnsToFit();
+
+  }
+
+  
+
+  setEfficiency() {
+    this.calculateEfficiencyOnly = true;
+    this.calculateSmartnessOnly = false;
+    this.calculateGreennessOnly = false;
+    this.calculateResilienceOnly = false;
+    this.selectedIndicator = 'Indicators: Efficiency';
+    this.gridApi.setColumnsVisible(['score'], false); // Hide the score column
+    this.gridApi.refreshCells();
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  setSmartness() {
+    this.calculateEfficiencyOnly = false;
+    this.calculateSmartnessOnly = true;
+    this.calculateGreennessOnly = false;
+    this.calculateResilienceOnly = false;
+    this.selectedIndicator = 'Indicators: Smartness';
+    this.gridApi.setColumnsVisible(['score'], false); // Hide the score column
+    this.gridApi.refreshCells();
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  setGreenness() {
+    this.calculateEfficiencyOnly = false;
+    this.calculateSmartnessOnly = false;
+    this.calculateGreennessOnly = true;
+    this.calculateResilienceOnly = false;
+    this.selectedIndicator = 'Indicators: Greenness';
+    this.gridApi.setColumnsVisible(['score'], false); // Hide the score column
+    this.gridApi.refreshCells();
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  setResilience() {
+    this.calculateEfficiencyOnly = false;
+    this.calculateSmartnessOnly = false;
+    this.calculateGreennessOnly = false;
+    this.calculateResilienceOnly = true;
+    this.selectedIndicator = 'Indicators: Resilience';
+    this.gridApi.setColumnsVisible(['score'], false); // Hide the score column
+    this.gridApi.refreshCells();
+    this.gridApi.sizeColumnsToFit();
+  }
+
+
+
   setShipliner() {
+    this.selectedStakeholder = 'Stakeholder: Shipliner';
     this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Shipliner'] } });
     this.gridApi.onFilterChanged();
     setTimeout(() => {
@@ -246,6 +339,7 @@ export class DashboardComponent {
   }
 
   setRegulator() {
+    this.selectedStakeholder = 'Stakeholder: Regulator';
     this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Regulator'] } });
     this.gridApi.onFilterChanged();
     setTimeout(() => {
@@ -255,6 +349,7 @@ export class DashboardComponent {
   }
 
   setLogisticsPartners() {
+    this.selectedStakeholder = 'Stakeholder: Logistics Partners';
     this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Logistics Partners'] } });
     this.gridApi.onFilterChanged();
     setTimeout(() => {
@@ -265,6 +360,7 @@ export class DashboardComponent {
   }
 
   setPortOperations() {
+    this.selectedStakeholder = 'Stakeholder: Port Operators';
     this.gridApi.setFilterModel({ 'Stakeholder': { type: 'set', values: ['Port Operators'] } });
     this.gridApi.onFilterChanged();
     setTimeout(() => {
@@ -288,24 +384,7 @@ export class DashboardComponent {
 
 
 
-  clearIndicators() {
-    // Get the column definition for the 'Score Chart' column
-    const columnDef = this.gridApi.getColumnDef('sparkline');
-
-    // Update the valueGetter function in the column definition
-    columnDef.valueGetter = (params: any) => {
-      const values = [
-        params.getValue('Efficiency').value,
-        params.getValue('Smartness').value,
-        params.getValue('Greenness').value,
-        params.getValue('Resilience').value
-      ];
-      return values;
-    };
-
-    // Refresh the cells in the 'Score Chart' column
-    this.gridApi.refreshCells({ columns: ['sparkline'] });
-  }
+  
 
   fetchCSV() {
     this.http.get('assets/data.csv', { responseType: 'text' }).subscribe(

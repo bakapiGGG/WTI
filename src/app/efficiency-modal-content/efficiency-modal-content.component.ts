@@ -93,7 +93,6 @@ export class EfficiencyModalContentComponent implements OnDestroy {
     setTimeout(() => {
       this.gridApi.refreshCells();
     }, 0);
-
   }
 
   setRegulator() {
@@ -102,7 +101,6 @@ export class EfficiencyModalContentComponent implements OnDestroy {
     setTimeout(() => {
       this.gridApi.refreshCells();
     }, 0);
-
   }
 
   setLogisticsPartners() {
@@ -111,8 +109,6 @@ export class EfficiencyModalContentComponent implements OnDestroy {
     setTimeout(() => {
       this.gridApi.refreshCells();
     }, 0);
-
-
   }
 
   setPortOperations() {
@@ -121,8 +117,6 @@ export class EfficiencyModalContentComponent implements OnDestroy {
     setTimeout(() => {
       this.gridApi.refreshCells();
     }, 0);
-
-
   }
 
   clearStakeholders() {
