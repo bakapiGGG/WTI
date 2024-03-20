@@ -4,7 +4,6 @@ import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid C
 import * as Papa from 'papaparse'; // CSV Parser
 import { GridReadyEvent, GridApi, ColumnApi } from 'ag-grid-community';
 import { GridOptions } from 'ag-grid-community';
-import { MetricSparklineComponent } from '../metric-sparkline/metric-sparkline.component';
 
 interface DataRow {
   ID: string;

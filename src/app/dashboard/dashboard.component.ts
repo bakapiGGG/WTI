@@ -5,6 +5,8 @@ import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid C
 import * as Papa from 'papaparse'; // CSV Parser
 import { ViewChild, ElementRef } from '@angular/core';
 import { ColumnFormatterParams } from 'ag-grid-community';
+import { ScoreChartComponent } from '../score-chart/score-chart.component';
+
 
 interface DataRow {
   ID: string;
@@ -36,6 +38,7 @@ export class DashboardComponent {
   selectedIndicator: string = 'Indicators';
   selectedStakeholder: string = 'Stakeholders';
   modalTitle = 'Default Title';
+  frameworkComponents: any;
   enableCharts = true;
   autoGroupColumnDef = {
     headerName: 'Container Port',
@@ -53,6 +56,9 @@ export class DashboardComponent {
   @Output() modalOpened = new EventEmitter<void>();
 
   constructor(private http: HttpClient) {
+    this.frameworkComponents = {
+      scoreChart: ScoreChartComponent,
+    };
     this.fetchCSV()
   }
 
@@ -84,9 +90,6 @@ export class DashboardComponent {
 
   
   public columnFormatter = (params: ColumnFormatterParams) => {
-    
-    // // Debugging purposes
-    // console.log("xValue: ", params.xValue.toString());
 
     let color;
     if (params.xValue.toString() === 'Efficiency') 
@@ -111,6 +114,8 @@ export class DashboardComponent {
       stroke: color
     };
   }
+
+  
 
   columnDefs: ColDef[] = [
 
@@ -150,15 +155,6 @@ export class DashboardComponent {
           return weightedAverage;
         }
       },
-      // valueGetter: params => {
-      //   const efficiency = params.getValue('Efficiency') || 0;
-      //   const smartness = params.getValue('Smartness') || 0;
-      //   const greenness = params.getValue('Greenness') || 0;
-      //   const resilience = params.getValue('Resilience') || 0;
-      //   const weightedAverage = 0.3 * efficiency + 0.2 * smartness + 0.3 * greenness + 0.2 * resilience;
-
-      //   return weightedAverage;
-      // },
       valueFormatter: params => params.value.toFixed(2),
       sort: 'desc',
     },
@@ -209,6 +205,7 @@ export class DashboardComponent {
     { field: 'Smartness', headerName: 'Smartness', aggFunc: 'avg', hide: true },
     { field: 'Greenness', headerName: 'Greenness', aggFunc: 'avg', hide: true },
     { field: 'Resilience', headerName: 'Resilience', aggFunc: 'avg', hide: true },
+    // { field: 'chart', headerName: 'Chart', cellRenderer: ScoreChartComponent},
 
   ];
 
@@ -378,6 +375,8 @@ export class DashboardComponent {
     }, 0);
   }
 
+  
+
 
 
 
@@ -410,4 +409,14 @@ export class DashboardComponent {
       err => console.error(err)
     );
   }
+
+
+
+
+
+
+
+
+
+
 }

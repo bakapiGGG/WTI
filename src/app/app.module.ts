@@ -19,12 +19,16 @@ import { LoginUserComponent } from './login-user/login-user.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { HttpClientModule } from '@angular/common/http';
 import 'ag-grid-enterprise';
-import { MetricSparklineComponent } from './metric-sparkline/metric-sparkline.component';
 import { EfficiencyModalContentComponent } from './efficiency-modal-content/efficiency-modal-content.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SmartnessModalContentComponent } from './smartness-modal-content/smartness-modal-content.component';
 import { GreennessModalContentComponent } from './greenness-modal-content/greenness-modal-content.component';
 import { ResilienceModalContentComponent } from './resilience-modal-content/resilience-modal-content.component';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { ScoreChartComponent } from './score-chart/score-chart.component';
+
+
+
 
 
 
@@ -43,11 +47,11 @@ import { ResilienceModalContentComponent } from './resilience-modal-content/resi
     JoinUsComponent,
     LoginUserComponent,
     LoginAdminComponent,
-    MetricSparklineComponent,
     EfficiencyModalContentComponent,
     SmartnessModalContentComponent,
     GreennessModalContentComponent,
     ResilienceModalContentComponent,
+    ScoreChartComponent,
   ],
   
   imports: [
@@ -58,9 +62,9 @@ import { ResilienceModalContentComponent } from './resilience-modal-content/resi
     MatButtonToggleModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
-    NgbModule
+    NgbModule,
   ],
-  providers: [],
+  providers: [provideCharts(withDefaultRegisterables())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
