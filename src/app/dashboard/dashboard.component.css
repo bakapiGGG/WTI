@@ -97,3 +97,8 @@ h1 {
     gap: 10px; /* adjust as needed */
     margin-bottom: 20px;
 }
+
+.container-dashboard {
+    width: 70%;
+    margin: 0 auto;
+}
