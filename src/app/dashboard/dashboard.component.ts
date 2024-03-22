@@ -1,9 +1,5 @@
 import {
-  AfterViewInit,
-  Component,
-  inject,
-  Input,
-  Renderer2,
+  Component, 
   Output,
   EventEmitter,
 } from '@angular/core';
@@ -142,17 +138,17 @@ export class DashboardComponent {
       headerName: 'Score',
       field: 'avg_score',
       colId: 'avg_score',
-      width: 30,
+      width: 50,
       valueGetter: (params) => {
         const efficiency = Number(params.getValue('Efficiency')) || 0;
         const smartness = Number(params.getValue('Smartness')) || 0;
         const greenness = Number(params.getValue('Greenness')) || 0;
         const resilience = Number(params.getValue('Resilience')) || 0;
         const weightedAverage =
-          0.3 * efficiency +
-          0.2 * smartness +
-          0.3 * greenness +
-          0.2 * resilience;
+          0.25 * efficiency +
+          0.25 * smartness +
+          0.25 * greenness +
+          0.25 * resilience;
 
         if (this.calculateEfficiencyOnly) {
           return efficiency;
@@ -168,12 +164,13 @@ export class DashboardComponent {
       },
       valueFormatter: (params) => params.value.toFixed(2),
       sort: 'desc',
+      cellStyle: { 'text-align': 'center' },
     },
     {
-      headerName: 'Score Chart',
+      headerName: 'Chart',
       field: 'sparkline',
       colId: 'score',
-      width: 40,
+      width: 42,
       cellRenderer: 'agSparklineCellRenderer',
       cellRendererParams: {
         sparklineOptions: {
