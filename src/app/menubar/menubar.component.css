@@ -18,6 +18,10 @@
   color: white;
 }
 
+.nav-link {
+    font-size: 20px; /* Adjust as needed */
+  }
+
 .nav-link:hover {
   color: cyan;
   /* Change this t render the colour of the nav link cell when hovering */
@@ -26,11 +30,10 @@
   border-bottom: 2px solid cadetblue;
 }
 
-.nav-link-logo img {
+/* .nav-link-logo img {
   max-height: 50px;
-  /* Adjust this value as needed */
   width: auto;
-}
+} */
 
 .bg-body-tertiary {
   background-color: black !important;
