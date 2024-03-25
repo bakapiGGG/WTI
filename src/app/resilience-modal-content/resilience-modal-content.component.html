@@ -1,0 +1,22 @@
+<div class="dropdown-container">
+    <div class="dropdown">
+        <a class="btn btn-secondary btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Stakeholders
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" (click)="clearStakeholders()">All</a></li>
+            <li><a class="dropdown-item" (click)="setShipliner()">Shipliner</a></li>
+            <li><a class="dropdown-item" (click)="setRegulator()">Regulator</a></li>
+            <li><a class="dropdown-item" (click)="setLogisticsPartners()">Logistics Partners</a></li>
+            <li><a class="dropdown-item" (click)="setPortOperations()">Port Operations</a></li>
+        </ul>
+    </div>
+</div>
+
+<ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-quartz-dark" [rowData]="rowData"
+    [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowSelection]="'multiple'" [enableCharts]="enableCharts"
+    [enableRangeSelection]="true" [autoGroupColumnDef]="autoGroupColumnDef" [enableFillHandle]="true" 
+    [suppressAggFuncInHeader] = "true"
+    (gridReady)="onGridReady($event)">
+</ag-grid-angular>

@@ -1,0 +1,6 @@
+.dropdown-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* adjust as needed */
+    margin-bottom: 20px;
+}

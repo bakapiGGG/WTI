@@ -1,0 +1,16 @@
+.ag-group-expanded {
+    pointer-events: none;
+}
+
+ag-theme-quartz-dark .ag-icon-group-expanded {
+    pointer-events: none !important;
+    color: red !important; 
+    display: none !important;
+}
+
+.dropdown-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* adjust as needed */
+    margin-bottom: 20px;
+}
