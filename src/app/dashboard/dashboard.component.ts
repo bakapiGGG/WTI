@@ -80,16 +80,16 @@ export class DashboardComponent {
 
     if (this.counter % 4 == 1) {
       // return "Efficiency" + '\n' + params.value.toFixed(2);
-      return Math.round(params.value) + '%' + '\n\n' + 'E';
+      return params.value.toFixed(1) * 10 + '%' + '\n\n' + 'E';
     } else if (this.counter % 4 == 2) {
       // return "Smartness" + '\n' + params.value.toFixed(2);
-      return Math.round(params.value) + '%' + '\n\n' + 'S';
+      return params.value.toFixed(1) * 10 + '%' + '\n\n' + 'S';
     } else if (this.counter % 4 == 3) {
       // return "Greenness" + '\n' + params.value.toFixed(2);
-      return Math.round(params.value) + '%' + '\n\n' + 'G';
+      return params.value.toFixed(1) * 10 + '%' + '\n\n' + 'G';
     } else {
       // return "Resilience" + '\n' + params.value.toFixed(2);
-      return Math.round(params.value) + '%' + '\n\n' + 'R';
+      return params.value.toFixed(1) * 10 + '%' + '\n\n' + 'R';
     }
   };
 
@@ -145,10 +145,10 @@ export class DashboardComponent {
         const greenness = Number(params.getValue('Greenness')) || 0;
         const resilience = Number(params.getValue('Resilience')) || 0;
         const weightedAverage =
-          0.25 * efficiency +
-          0.25 * smartness +
-          0.25 * greenness +
-          0.25 * resilience;
+          3.3673 * efficiency +
+          2.7551 * smartness +
+          1.99 * greenness +
+          1.878 * resilience;
 
         if (this.calculateEfficiencyOnly) {
           return efficiency;
