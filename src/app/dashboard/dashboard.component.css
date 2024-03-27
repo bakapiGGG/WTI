@@ -11,13 +11,27 @@
 }
 
 ::ng-deep .ag-header-cell-label {
-  font-size: 42px; /* Adjust as needed */
+  font-size: 32px; /* Adjust as needed */
+}
+
+@media (max-width: 1200px) {
+  ::ng-deep .ag-header-cell-label {
+    font-size: 18px; /* Smaller font size for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  ::ng-deep .ag-header-cell-label {
+    font-size: 12px; /* Even smaller font size for small screens */
+  }
 }
 
 ::ng-deep .ag-header-cell {
   height: 100px; /* Adjust as needed */
   line-height: 100px; /* Adjust as needed */
 }
+
+
 
 .bg-img {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
@@ -106,4 +120,10 @@ h1 {
 .container-dashboard {
   width: 70%;
   margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .container-dashboard {
+    width: 100%;
+  }
 }

@@ -4,7 +4,7 @@ ID,Name,Stakeholder,City,Efficiency,Smartness,Greenness,Resilience
 3,John,Shipliner,Rotterdam (Netherlands),8,7,7,8
 4,John,Shipliner,Antwerp (Belgium),8,8.5,7,8
 5,John,Shipliner,Busan (South Korea),9,8.5,5,6
-6,John,Shipliner,Ningbo-Zhousan (China),8.5,8,7,7
+6,John,Shipliner,Ningbo-Zhoushan (China),8.5,8,7,7
 7,John,Shipliner,Shenzhen (China),7,7,6,7
 8,John,Shipliner,Los Angeles (United States),7,7.5,6,6.5
 9,John,Shipliner,Hong Kong (China),7,7,5,6
@@ -14,7 +14,7 @@ ID,Name,Stakeholder,City,Efficiency,Smartness,Greenness,Resilience
 13,Michael,Regulator,Rotterdam (Netherlands),8,8,8,8
 14,Michael,Regulator,Antwerp (Belgium),7.5,9,7.5,8
 15,Michael,Regulator,Busan (South Korea),8.5,9,5,5
-16,Michael,Regulator,Ningbo-Zhousan (China),8,7,5,5
+16,Michael,Regulator,Ningbo-Zhoushan (China),8,7,5,5
 17,Michael,Regulator,Shenzhen (China),7,7,7,5
 18,Michael,Regulator,Los Angeles (United States),5,7,5,6
 19,Michael,Regulator,Hong Kong (China),7,6,6,5
@@ -24,7 +24,7 @@ ID,Name,Stakeholder,City,Efficiency,Smartness,Greenness,Resilience
 23,Rajesh,Logistics Partners,Rotterdam (Netherlands),8,8,7.5,8
 24,Rajesh,Logistics Partners,Antwerp (Belgium),7,8,7,7
 25,Rajesh,Logistics Partners,Busan (South Korea),8.5,8,5,5
-26,Rajesh,Logistics Partners,Ningbo-Zhousan (China),8,7.5,4,6
+26,Rajesh,Logistics Partners,Ningbo-Zhoushan (China),8,7.5,4,6
 27,Rajesh,Logistics Partners,Shenzhen (China),7.5,8,6,5
 28,Rajesh,Logistics Partners,Los Angeles (United States),7,7.5,6,7
 29,Rajesh,Logistics Partners,Hong Kong (China),7,7,7,5
@@ -34,7 +34,7 @@ ID,Name,Stakeholder,City,Efficiency,Smartness,Greenness,Resilience
 33,James,Port Operators,Rotterdam (Netherlands),9,8,8,8
 34,James,Port Operators,Antwerp (Belgium),8,8,8,7
 35,James,Port Operators,Busan (South Korea),8,9,6,6
-36,James,Port Operators,Ningbo-Zhousan (China),8,9,6,7
+36,James,Port Operators,Ningbo-Zhoushan (China),8,9,6,7
 37,James,Port Operators,Shenzhen (China),8,8,7,6
 38,James,Port Operators,Los Angeles (United States),7,8,7,8
 39,James,Port Operators,Hong Kong (China),8,7,5,6

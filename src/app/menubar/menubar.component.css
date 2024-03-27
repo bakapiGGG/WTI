@@ -5,37 +5,7 @@
   z-index: 9999;
 }
 
-.navbar-toggler {
-  border: none;
-  background: transparent !important;
-}
 
-.navbar-toggler-icon {
-  display: inline-block;
-  content: "";
-  width: 22px;
-  height: 2px;
-  background-color: white;
-  position: absolute;
-  transform: rotate(0deg);
-  transition: .5s ease-in-out;
-}
-
-.navbar-toggler-icon::before, .navbar-toggler-icon::after {
-  width: 22px;
-  height: 2px;
-  background-color: white;
-  position: absolute;
-  content: "";
-}
-
-.navbar-toggler-icon::before {
-  top: -10px;
-}
-
-.navbar-toggler-icon::after {
-  top: 10px;
-}
 
 
 
