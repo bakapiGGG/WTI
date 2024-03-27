@@ -1,111 +1,41 @@
-ID,Name,Stakeholder,City,Efficiency,Smartness,Greenness,Resilience,Year
-1,John,Shipliner,Shanghai,10,53,19,83,2023
-2,John,Shipliner,Singapore,58,9,2,65,2023
-3,John,Shipliner,Ningbo-Zhoushan,67,88,16,12,2023
-4,John,Shipliner,Shenzhen,86,50,64,56,2023
-5,John,Shipliner,Qingdao,36,49,52,60,2023
-6,John,Shipliner,Guangzhou,45,9,6,47,2023
-7,John,Shipliner,Busan,92,57,67,51,2023
-8,John,Shipliner,Tianjin,38,20,41,91,2023
-9,John,Shipliner,Los Angeles (Long Beach),73,68,67,70,2023
-10,John,Shipliner,Hong Kong,68,87,99,9,2023
-11,Michael,Regulator,Shanghai,79,54,57,19,2023
-12,Michael,Regulator,Singapore,8,75,36,44,2023
-13,Michael,Regulator,Ningbo-Zhoushan,86,42,83,76,2023
-14,Michael,Regulator,Shenzhen,86,50,33,61,2023
-15,Michael,Regulator,Qingdao,27,57,50,83,2023
-16,Michael,Regulator,Guangzhou,73,40,59,30,2023
-17,Michael,Regulator,Busan,61,32,68,37,2023
-18,Michael,Regulator,Tianjin,23,0,79,93,2023
-19,Michael,Regulator,Los Angeles (Long Beach),79,82,89,39,2023
-20,Michael,Regulator,Hong Kong,71,65,24,66,2023
-21,Rajesh,Logistics Partners,Shanghai,74,37,87,90,2024
-22,Rajesh,Logistics Partners,Singapore,43,95,1,96,2024
-23,Rajesh,Logistics Partners,Ningbo-Zhoushan,5,59,65,37,2024
-24,Rajesh,Logistics Partners,Shenzhen,91,63,3,10,2024
-25,Rajesh,Logistics Partners,Qingdao,66,48,96,97,2024
-26,Rajesh,Logistics Partners,Guangzhou,5,37,52,64,2024
-27,Rajesh,Logistics Partners,Busan,61,10,64,98,2024
-28,Rajesh,Logistics Partners,Tianjin,19,23,7,40,2024
-29,Rajesh,Logistics Partners,Los Angeles (Long Beach),42,61,15,40,2024
-30,Rajesh,Logistics Partners,Hong Kong,19,9,72,7,2024
-31,James,Port Operators,Shanghai,48,0,68,41,2022
-32,James,Port Operators,Singapore,47,22,20,44,2022
-33,James,Port Operators,Ningbo-Zhoushan,0,46,26,64,2022
-34,James,Port Operators,Shenzhen,3,98,95,94,2022
-35,James,Port Operators,Qingdao,55,59,18,96,2022
-36,James,Port Operators,Guangzhou,46,4,54,83,2022
-37,James,Port Operators,Busan,43,3,42,12,2022
-38,James,Port Operators,Tianjin,89,94,20,22,2022
-39,James,Port Operators,Los Angeles (Long Beach),27,46,46,61,2022
-40,James,Port Operators,Hong Kong,35,35,21,96,2022
-41,Harper,Port Operators,Shanghai,56,75,18,7,2023
-42,Harper,Port Operators,Singapore,52,32,90,43,2023
-43,Harper,Port Operators,Ningbo-Zhoushan,22,62,33,5,2023
-44,Harper,Port Operators,Shenzhen,12,22,88,31,2023
-45,Harper,Port Operators,Qingdao,57,36,29,89,2023
-46,Harper,Port Operators,Guangzhou,70,58,76,69,2023
-47,Harper,Port Operators,Busan,94,52,5,75,2023
-48,Harper,Port Operators,Tianjin,1,50,67,72,2023
-49,Harper,Port Operators,Los Angeles (Long Beach),92,23,40,30,2023
-50,Harper,Port Operators,Hong Kong,23,14,12,55,2023
-51,Elijah,Shipliner,Shanghai,72,23,21,45,2022
-52,Elijah,Shipliner,Singapore,63,42,57,79,2022
-53,Elijah,Shipliner,Ningbo-Zhoushan,22,23,94,57,2022
-54,Elijah,Shipliner,Shenzhen,17,72,72,89,2022
-55,Elijah,Shipliner,Qingdao,16,100,97,96,2022
-56,Elijah,Shipliner,Guangzhou,71,90,59,59,2022
-57,Elijah,Shipliner,Busan,38,2,33,45,2022
-58,Elijah,Shipliner,Tianjin,63,16,16,61,2022
-59,Elijah,Shipliner,Los Angeles (Long Beach),31,61,92,5,2022
-60,Elijah,Shipliner,Hong Kong,15,38,58,31,2022
-61,Sofia,Regulator,Shanghai,87,18,17,52,2023
-62,Sofia,Regulator,Singapore,98,74,85,50,2023
-63,Sofia,Regulator,Ningbo-Zhoushan,4,33,9,41,2023
-64,Sofia,Regulator,Shenzhen,58,44,68,73,2023
-65,Sofia,Regulator,Qingdao,76,90,93,77,2023
-66,Sofia,Regulator,Guangzhou,99,17,63,48,2023
-67,Sofia,Regulator,Busan,10,59,27,51,2023
-68,Sofia,Regulator,Tianjin,49,58,90,39,2023
-69,Sofia,Regulator,Los Angeles (Long Beach),53,90,32,20,2023
-70,Sofia,Regulator,Hong Kong,42,36,33,38,2023
-71,Mason,Logistics Partners,Shanghai,66,11,31,17,2022
-72,Mason,Logistics Partners,Singapore,3,69,46,46,2022
-73,Mason,Logistics Partners,Ningbo-Zhoushan,87,69,82,25,2022
-74,Mason,Logistics Partners,Shenzhen,36,92,29,79,2022
-75,Mason,Logistics Partners,Qingdao,78,20,3,39,2022
-76,Mason,Logistics Partners,Guangzhou,86,4,23,88,2022
-77,Mason,Logistics Partners,Busan,3,80,77,80,2022
-78,Mason,Logistics Partners,Tianjin,40,41,18,74,2022
-79,Mason,Logistics Partners,Los Angeles (Long Beach),69,98,66,86,2022
-80,Mason,Logistics Partners,Hong Kong,53,33,22,52,2022
-81,Aria,Port Operators,Shanghai,81,22,74,59,2023
-82,Aria,Port Operators,Singapore,80,16,90,55,2023
-83,Aria,Port Operators,Ningbo-Zhoushan,80,60,72,52,2023
-84,Aria,Port Operators,Shenzhen,0,54,24,65,2023
-85,Aria,Port Operators,Qingdao,28,26,62,95,2023
-86,Aria,Port Operators,Guangzhou,3,66,87,31,2023
-87,Aria,Port Operators,Busan,90,18,32,25,2023
-88,Aria,Port Operators,Tianjin,76,5,60,80,2023
-89,Aria,Port Operators,Los Angeles (Long Beach),39,95,39,75,2023
-90,Aria,Port Operators,Hong Kong,79,76,99,4,2023
-91,Lucas,Shipliner,Shanghai,26,76,56,90,2023
-92,Lucas,Shipliner,Singapore,54,55,83,55,2023
-93,Lucas,Shipliner,Ningbo-Zhoushan,89,8,93,76,2023
-94,Lucas,Shipliner,Shenzhen,53,40,88,40,2023
-95,Lucas,Shipliner,Qingdao,76,1,8,46,2023
-96,Lucas,Shipliner,Guangzhou,3,47,40,37,2023
-97,Lucas,Shipliner,Busan,27,40,47,93,2023
-98,Lucas,Shipliner,Tianjin,60,51,10,59,2023
-99,Lucas,Shipliner,Los Angeles (Long Beach),75,99,100,42,2023
-100,Lucas,Shipliner,Hong Kong,100,98,8,81,2023
-101,Emma,Regulator,Shanghai,1,2,68,82,2022
-102,Emma,Regulator,Singapore,10,46,70,22,2022
-103,Emma,Regulator,Ningbo-Zhoushan,87,31,29,4,2022
-104,Emma,Regulator,Shenzhen,31,9,25,94,2022
-105,Emma,Regulator,Qingdao,15,51,36,18,2022
-106,Emma,Regulator,Guangzhou,50,72,74,17,2022
-107,Emma,Regulator,Busan,37,37,24,26,2022
-108,Emma,Regulator,Tianjin,41,54,93,74,2022
-109,Emma,Regulator,Los Angeles (Long Beach),76,52,87,69,2022
-110,Emma,Regulator,Hong Kong,99,45,52,72,2022
+ID,Name,Stakeholder,City,Efficiency,Smartness,Greenness,Resilience
+1,John,Shipliner,Singapore (Singapore),9,8,8,8
+2,John,Shipliner,Shanghai (China),9,8,8,7
+3,John,Shipliner,Rotterdam (Netherlands),8,7,7,8
+4,John,Shipliner,Antwerp (Belgium),8,8.5,7,8
+5,John,Shipliner,Busan (South Korea),9,8.5,5,6
+6,John,Shipliner,Ningbo-Zhoushan (China),8.5,8,7,7
+7,John,Shipliner,Shenzhen (China),7,7,6,7
+8,John,Shipliner,Los Angeles (United States),7,7.5,6,6.5
+9,John,Shipliner,Hong Kong (China),7,7,5,6
+10,John,Shipliner,Dubai (United Arab Emirates),7.5,5,6,5
+11,Michael,Regulator,Singapore (Singapore),8.5,8,7,7
+12,Michael,Regulator,Shanghai (China),8.5,8,7.5,6
+13,Michael,Regulator,Rotterdam (Netherlands),8,8,8,8
+14,Michael,Regulator,Antwerp (Belgium),7.5,9,7.5,8
+15,Michael,Regulator,Busan (South Korea),8.5,9,5,5
+16,Michael,Regulator,Ningbo-Zhoushan (China),8,7,5,5
+17,Michael,Regulator,Shenzhen (China),7,7,7,5
+18,Michael,Regulator,Los Angeles (United States),5,7,5,6
+19,Michael,Regulator,Hong Kong (China),7,6,6,5
+20,Michael,Regulator,Dubai (United Arab Emirates),7,6,6,6
+21,Rajesh,Logistics Partners,Singapore (Singapore),9,8,8,8
+22,Rajesh,Logistics Partners,Shanghai (China),8.5,7.5,9,7.5
+23,Rajesh,Logistics Partners,Rotterdam (Netherlands),8,8,7.5,8
+24,Rajesh,Logistics Partners,Antwerp (Belgium),7,8,7,7
+25,Rajesh,Logistics Partners,Busan (South Korea),8.5,8,5,5
+26,Rajesh,Logistics Partners,Ningbo-Zhoushan (China),8,7.5,4,6
+27,Rajesh,Logistics Partners,Shenzhen (China),7.5,8,6,5
+28,Rajesh,Logistics Partners,Los Angeles (United States),7,7.5,6,7
+29,Rajesh,Logistics Partners,Hong Kong (China),7,7,7,5
+30,Rajesh,Logistics Partners,Dubai (United Arab Emirates),8,6,5,6
+31,James,Port Operators,Singapore (Singapore),9.5,9,8,8
+32,James,Port Operators,Shanghai (China),9.5,8,7,7
+33,James,Port Operators,Rotterdam (Netherlands),9,8,8,8
+34,James,Port Operators,Antwerp (Belgium),8,8,8,7
+35,James,Port Operators,Busan (South Korea),8,9,6,6
+36,James,Port Operators,Ningbo-Zhoushan (China),8,9,6,7
+37,James,Port Operators,Shenzhen (China),8,8,7,6
+38,James,Port Operators,Los Angeles (United States),7,8,7,8
+39,James,Port Operators,Hong Kong (China),8,7,5,6
+40,James,Port Operators,Dubai (United Arab Emirates),9,6,5,5

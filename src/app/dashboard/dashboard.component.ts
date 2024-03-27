@@ -1,7 +1,10 @@
 import {
-  Component, 
+  Component,
   Output,
   EventEmitter,
+  OnDestroy,
+  NgZone,
+  OnInit,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // HTTP Client
 import { ColDef, ColumnSparklineOptions } from 'ag-grid-community'; // AG Grid Column Definition
@@ -27,21 +30,23 @@ interface DataRow {
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('efficiencyModal') efficiencyModal!: ElementRef;
 
   uniqueContainerPorts: string[] = [
-    'Guangzhou',
-    'Singapore',
-    'Los Angeles (Long Beach)',
-    'Ningbo-Zhoushan',
-    'Shenzhen',
-    'Qingdao',
-    'Shanghai',
-    'Tianjin',
-    'Hong Kong',
-    'Busan',
+    'Singapore (Singapore)',
+    'Shanghai (China)',
+    'Rotterdam (Netherlands)',
+    'Antwerp (Belgium)',
+    'Busan (South Korea)',
+    'Ningbo-Zhoushan (China)',
+    'Shenzhen (China)',
+    'Los Angeles (United States)',
+    'Hong Kong (China)',
+    'Dubai (United Arab Emirates)',
+    'Los Angeles (United States)',
   ];
+  
   calculateEfficiencyOnly: boolean = false;
   calculateSmartnessOnly: boolean = false;
   calculateGreennessOnly: boolean = false;
@@ -66,7 +71,7 @@ export class DashboardComponent {
   };
   @Output() modalOpened = new EventEmitter<void>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private zone: NgZone) {
     this.frameworkComponents = {
       scoreChart: ScoreChartComponent,
     };
@@ -80,16 +85,16 @@ export class DashboardComponent {
 
     if (this.counter % 4 == 1) {
       // return "Efficiency" + '\n' + params.value.toFixed(2);
-      return Math.round(params.value) + '%' + '\n\n' + 'E';
+      return params.value.toFixed(1) * 10 + '%' + '\n\n' + 'E';
     } else if (this.counter % 4 == 2) {
       // return "Smartness" + '\n' + params.value.toFixed(2);
-      return Math.round(params.value) + '%' + '\n\n' + 'S';
+      return params.value.toFixed(1) * 10 + '%' + '\n\n' + 'S';
     } else if (this.counter % 4 == 3) {
       // return "Greenness" + '\n' + params.value.toFixed(2);
-      return Math.round(params.value) + '%' + '\n\n' + 'G';
+      return params.value.toFixed(1) * 10 + '%' + '\n\n' + 'G';
     } else {
       // return "Resilience" + '\n' + params.value.toFixed(2);
-      return Math.round(params.value) + '%' + '\n\n' + 'R';
+      return params.value.toFixed(1) * 10 + '%' + '\n\n' + 'R';
     }
   };
 
@@ -145,26 +150,42 @@ export class DashboardComponent {
         const greenness = Number(params.getValue('Greenness')) || 0;
         const resilience = Number(params.getValue('Resilience')) || 0;
         const weightedAverage =
-          0.25 * efficiency +
-          0.25 * smartness +
-          0.25 * greenness +
-          0.25 * resilience;
+          3.3673 * efficiency +
+          2.7551 * smartness +
+          1.99 * greenness +
+          1.878 * resilience;
+
+        // Debugging purposes
+        // console.log('Efficiency:', efficiency);
+        // console.log('Smartness:', smartness);
+        // console.log('Greenness:', greenness);
+        // console.log('Resilience:', resilience);
+        // console.log('efficiencySum:', efficiencySum);
+        // console.log(params);
 
         if (this.calculateEfficiencyOnly) {
-          return efficiency;
+          // return efficiency;
+          const efficiencySum = Number(params.getValue('SumEfficiency')) || 0;
+          return efficiencySum;
         } else if (this.calculateSmartnessOnly) {
-          return smartness;
+          const smartnessSum = Number(params.getValue('SumSmartness')) || 0;
+          return smartnessSum;
+          // return smartness;
         } else if (this.calculateGreennessOnly) {
-          return greenness;
+          const greennessSum = Number(params.getValue('SumGreenness')) || 0;
+          return greennessSum;
+          // return greenness;
         } else if (this.calculateResilienceOnly) {
-          return resilience;
+          const resilienceSum = Number(params.getValue('SumResilience')) || 0;
+          return resilienceSum;
+          // return resilience;
         } else {
           return weightedAverage;
         }
       },
       valueFormatter: (params) => params.value.toFixed(2),
       sort: 'desc',
-      cellStyle: { 'text-align': 'center' },
+      // cellStyle: { 'text-align': 'center' },
     },
     {
       headerName: 'Chart',
@@ -189,6 +210,9 @@ export class DashboardComponent {
           highlightStyle: {
             fill: 'black',
             placement: 'center',
+          },
+          tooltip: {
+            enabled: false,
           },
           paddingInner: 0.2,
           paddingOuter: 0.1,
@@ -221,22 +245,47 @@ export class DashboardComponent {
       aggFunc: 'avg',
       hide: true,
     },
+    { field: 'Efficiency', colId: 'SumEfficiency', aggFunc: 'sum', hide: true },
+    { field: 'Smartness', colId: 'SumSmartness', aggFunc: 'sum', hide: true },
+    { field: 'Greenness', colId: 'SumGreenness', aggFunc: 'sum', hide: true },
+    { field: 'Resilience', colId: 'SumResilience', aggFunc: 'sum', hide: true },
   ];
-
-  defaultColDef = {
-    sortable: true,
-    // filter: true
-    cellStyle: {
-      'white-space': 'normal',
-      'line-height': '100px',
-      'text-align': 'left',
-      'font-size': '32px',
-    },
-  };
 
   rowData: any[] = [];
   gridApi: any;
   gridColumnApi: any;
+  rowHeight = 100;
+  headerHeight = 100;
+
+  defaultColDef = {
+    sortable: true,
+    // filter: true
+    // cellStyle: {
+    //   'white-space': 'normal',
+    //   'line-height': '100px',
+    //   'text-align': 'left',
+    //   'font-size': '32px',
+    // },
+    cellStyle: this.getCellStyle,
+  };
+
+  getCellStyle(params: any) {
+    if (window.innerWidth <= 1200) {
+      return {
+        'white-space': 'normal',
+        'line-height': '75px',
+        'text-align': 'left',
+        'font-size': '24px',
+      };
+    } else {
+      return {
+        'white-space': 'normal',
+        'line-height': '100px',
+        'text-align': 'left',
+        'font-size': '32px',
+      };
+    }
+  }
 
   // After the grid has been initialized...
   onGridReady(params: any) {
@@ -245,6 +294,39 @@ export class DashboardComponent {
     this.gridApi.moveColumns(['Rank'], 0);
     // Auto-size all columns
     this.gridApi.sizeColumnsToFit();
+  }
+
+  ngOnInit() {
+    this.zone.runOutsideAngular(() => {
+      window.addEventListener('resize', this.onWindowResize.bind(this));
+    });
+    this.updateDimensions();
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.onWindowResize.bind(this));
+  }
+
+  
+
+  onWindowResize() {
+    this.zone.run(() => {
+      this.updateDimensions();
+      if (this.gridApi) {
+        this.gridApi.resetRowHeights();
+        this.gridApi.refreshCells({ force: true });
+      }
+    });
+  }
+
+  updateDimensions() {
+    if (window.innerWidth <= 1200) {
+      this.rowHeight = 75;
+      this.headerHeight = 75;
+    } else {
+      this.rowHeight = 100;
+      this.headerHeight = 100;
+    }
   }
 
   openModal(id: string) {
@@ -285,6 +367,12 @@ export class DashboardComponent {
     this.selectedIndicator = 'Indicators';
     this.gridApi.refreshCells();
     this.gridApi.setColumnsVisible(['score'], true); // Unhide the score column
+    this.gridApi.applyColumnState({
+      state: [{ colId: 'avg_score', sort: 'desc' }],
+      // defaultState: { sort: null },
+    });
+    this.gridApi.onSortChanged();
+    this.gridApi.refreshCells();
     this.gridApi.sizeColumnsToFit();
   }
 
@@ -397,6 +485,7 @@ export class DashboardComponent {
   }
 
   clearStakeholders() {
+    this.selectedStakeholder = 'Stakeholder';
     this.gridApi.setFilterModel({ Stakeholder: null });
     this.gridApi.onFilterChanged();
     setTimeout(() => {

@@ -5,6 +5,10 @@
   z-index: 9999;
 }
 
+
+
+
+
 .nav-link {
   /* border-bottom: 2px solid white; */
   color: white;
@@ -19,8 +23,8 @@
 }
 
 .nav-link {
-    font-size: 20px; /* Adjust as needed */
-  }
+  font-size: 20px; /* Adjust as needed */
+}
 
 .nav-link:hover {
   color: cyan;
