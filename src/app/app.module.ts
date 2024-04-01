@@ -24,7 +24,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SmartnessModalContentComponent } from './smartness-modal-content/smartness-modal-content.component';
 import { GreennessModalContentComponent } from './greenness-modal-content/greenness-modal-content.component';
 import { ResilienceModalContentComponent } from './resilience-modal-content/resilience-modal-content.component';
-import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { ScoreChartComponent } from './score-chart/score-chart.component';
 
 
@@ -64,7 +63,7 @@ import { ScoreChartComponent } from './score-chart/score-chart.component';
     BsDropdownModule.forRoot(),
     NgbModule,
   ],
-  providers: [provideCharts(withDefaultRegisterables())],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
